@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- 目标框架要跟 AutoCAD 的托管接口一致：开发机的 AutoCAD 2025（acdbmgd.runtimeconfig.json 写的 tfm）是 net10.0，
+       低于它引用 acdbmgd.dll 会报 CS1705。换了 AutoCAD 版本就按那一版的 tfm 重编：
+           dotnet build -c Release -p:AcadDir="<AutoCAD 安装目录>" -p:AcadTfm=net8.0
+       产物落在 R25\TchDump.dll，已随仓库提交，AutoCAD 版本相同的机器部署时不用编。
+       2024 及更早是 .NET Framework 4.8，这个工程编不了，没做。 -->
+  <PropertyGroup>
+    <AcadTfm Condition="'$(AcadTfm)' == ''">net10.0</AcadTfm>
+    <AcadDir Condition="'$(AcadDir)' == ''">C:\Program Files\Autodesk\AutoCAD 2025</AcadDir>
+    <TargetFramework>$(AcadTfm)-windows</TargetFramework>
+    <AssemblyName>TchDump</AssemblyName>
+    <RootNamespace>TchDump</RootNamespace>
+    <Nullable>disable</Nullable>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>R25\</OutputPath>
+    <DebugType>none</DebugType>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="acdbmgd">
+      <HintPath>$(AcadDir)\acdbmgd.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="accoremgd">
+      <HintPath>$(AcadDir)\accoremgd.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,24 @@
+# 图纸是资料不是代码，公开仓库里一张都不放
+*.dwg
+*.dxf
+*.dwl
+*.dwl2
+*.bak
+*.sv$
+RAW/
+图纸识别产物/
+画图产物/
+plot.log
+ErrorReports/
+
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+
+# dotnet 的中间产物；tchdump/R25 下编好的插件要入库
+obj/
+
+# 自检用的天正样例图是用天正命令画出来的，不是工程图，要入库
+!mcp/fixtures/*.dwg
+*.log

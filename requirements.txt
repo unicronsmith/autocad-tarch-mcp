@@ -1,0 +1,6 @@
+ezdxf>=1.4
+pywin32>=306
+pywinauto>=0.6.8
+mcp>=1.2
+olefile>=0.47
+openpyxl>=3.1
